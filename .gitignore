@@ -74,3 +74,4 @@ php-cs-fixer
 /vendor/
 /web/bundles/
 /modules/dpdbaltics/vendor/*
+/var/
