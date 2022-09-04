@@ -1,0 +1,12 @@
+{shop_url}
+
+Sveiki, {firstname} {lastname},
+
+Naujas įspėjimo pranešimas išsaugotas
+
+ĮSPĖJIMAS: gavote naują registro pranešimą savo administracinėje dalyje.
+
+Tai galite patikrinti administracinėje dalyje skyriuje Išplėstiniai parametrai > Įvykių žurnalas.
+
+[{shop_name}]({shop_url})
+

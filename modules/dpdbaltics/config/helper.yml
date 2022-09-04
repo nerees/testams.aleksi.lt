@@ -1,0 +1,3 @@
+services:
+  Invertus\dpdBaltics\Helper\ShipmentHelper:
+    class: 'Invertus\dpdBaltics\Helper\ShipmentHelper'

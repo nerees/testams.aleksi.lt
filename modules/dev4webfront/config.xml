@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>dev4webfront</name>
+	<displayName><![CDATA[Dev4Web Front]]></displayName>
+	<version><![CDATA[1.0.0]]></version>
+	<description><![CDATA[Front Office features]]></description>
+	<author><![CDATA[Dev4Web hi@dev4web.eu]]></author>
+	<tab><![CDATA[front_office_features]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>1</need_instance>
+</module>

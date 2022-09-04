@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+    <categories>
+        <category><id>178</id>
+            <parent>0</parent>
+            <name><![CDATA[Mokomieji nešiojami naktipuodžiai]]></name>
+        </category>
+        <category><id>148</id>
+            <parent>0</parent>
+            <name><![CDATA[UGDYMO ĮSTAIGOMS]]></name>
+        </category>
+        <category><id>165</id>
+            <parent>0</parent>
+            <name><![CDATA[DEZINFEKCIJAI]]></name>
+        </category>
+        <category><id>170</id>
+            <parent>0</parent>
+            <name><![CDATA[IGROTECO]]></name>
+        </category>
+        <category><id>54</id>
+            <parent>0</parent>
+            <name><![CDATA[PLUS PLUS konstruktoriai]]></name>
+        </category>
+        <category><id>95</id>
+            <parent>0</parent>
+            <name><![CDATA[STAX konstruktoriai]]></name>
+        </category>
+        <category><id>57</id>
+            <parent>0</parent>
+            <name><![CDATA[LOTTIE lėlės]]></name>
+        </category>
+        <category><id>43</id>
+            <parent>0</parent>
+            <name><![CDATA[Vaikiška kosmetika]]></name>
+        </category>
+        <category><id>131</id>
+            <parent>0</parent>
+            <name><![CDATA[ARIAS lėlės]]></name>
+        </category>
+        <category><id>92</id>
+            <parent>0</parent>
+            <name><![CDATA[SPLAT PLANET - kuriame]]></name>
+        </category>
+        <category><id>91</id>
+            <parent>0</parent>
+            <name><![CDATA[PlayMais žaislai]]></name>
+        </category>
+        <category><id>41</id>
+            <parent>0</parent>
+            <name><![CDATA[Creativ žaislai]]></name>
+        </category>
+        <category><id>46</id>
+            <parent>0</parent>
+            <name><![CDATA[SLUBAN konstruktoriai]]></name>
+        </category>
+        <category><id>158</id>
+            <parent>0</parent>
+            <name><![CDATA[Smagiai]]></name>
+        </category>
+        <category><id>102</id>
+            <parent>0</parent>
+            <name><![CDATA[CALY pažįstame pasaulį žaisdami]]></name>
+        </category>
+        <category><id>67</id>
+            <parent>0</parent>
+            <name><![CDATA[Q-BRICKS konstruktoriai]]></name>
+        </category>
+        <category><id>101</id>
+            <parent>0</parent>
+            <name><![CDATA[BINO žaislai]]></name>
+        </category>
+        <category><id>139</id>
+            <parent>0</parent>
+            <name><![CDATA[PIO / Pionierius]]></name>
+        </category>
+        <category><id>166</id>
+            <parent>0</parent>
+            <name><![CDATA[Tinka MUMS iki 112 metų]]></name>
+        </category>
+        <category><id>143</id>
+            <parent>0</parent>
+            <name><![CDATA[JUGUETRONICA]]></name>
+        </category>
+        <category><id>147</id>
+            <parent>0</parent>
+            <name><![CDATA[SPECIALŪS PASIŪLYMAI]]></name>
+        </category>
+        <category><id>61</id>
+            <parent>0</parent>
+            <name><![CDATA[COMANSI žaislai]]></name>
+        </category>
+        <category><id>100</id>
+            <parent>0</parent>
+            <name><![CDATA[YoYo, Kendama]]></name>
+        </category>
+        <category><id>152</id>
+            <parent>0</parent>
+            <name><![CDATA[VASARA]]></name>
+        </category>
+        <category><id>180</id>
+            <parent>0</parent>
+            <name><![CDATA[HIGH PREMIUM augintinių maistas DELCON / BELGIJA]]></name>
+        </category>
+        <category><id>194</id>
+            <parent>0</parent>
+            <name><![CDATA[CD]]></name>
+        </category>
+        <category><id>58</id>
+            <parent>41</parent>
+            <name><![CDATA[Mediniai žaislai]]></name>
+        </category>
+        <category><id>42</id>
+            <parent>41</parent>
+            <name><![CDATA[Modelinai]]></name>
+        </category>
+        <category><id>45</id>
+            <parent>41</parent>
+            <name><![CDATA[Mielos smulkmenėlės]]></name>
+        </category>
+        <category><id>144</id>
+            <parent>43</parent>
+            <name><![CDATA[Nulupami lakai]]></name>
+        </category>
+        <category><id>169</id>
+            <parent>43</parent>
+            <name><![CDATA[Snails akių šešėliai]]></name>
+        </category>
+        <category><id>49</id>
+            <parent>43</parent>
+            <name><![CDATA[Snails lūpų blizgiai]]></name>
+        </category>
+        <category><id>84</id>
+            <parent>43</parent>
+            <name><![CDATA[Vaikiškas nagų lakas 10,5 ml]]></name>
+        </category>
+        <category><id>82</id>
+            <parent>43</parent>
+            <name><![CDATA[Vaikiškas nagų lakas 7 ml]]></name>
+        </category>
+        <category><id>88</id>
+            <parent>43</parent>
+            <name><![CDATA[Snails kūno ir plaukų blizgiai]]></name>
+        </category>
+        <category><id>89</id>
+            <parent>43</parent>
+            <name><![CDATA[Snails Tatuiruotės]]></name>
+        </category>
+        <category><id>90</id>
+            <parent>43</parent>
+            <name><![CDATA[Snails kreidutės plaukams]]></name>
+        </category>
+        <category><id>87</id>
+            <parent>43</parent>
+            <name><![CDATA[Snails nagų lipdukai]]></name>
+        </category>
+        <category><id>44</id>
+            <parent>43</parent>
+            <name><![CDATA[Snails dovanų rinkiniai]]></name>
+        </category>
+        <category><id>83</id>
+            <parent>43</parent>
+            <name><![CDATA[Snails dovanų maišeliai]]></name>
+        </category>
+        <category><id>55</id>
+            <parent>54</parent>
+            <name><![CDATA[PLUS PLUS 3-12 METŲ]]></name>
+        </category>
+        <category><id>69</id>
+            <parent>54</parent>
+            <name><![CDATA[DIDELĖS 1-6 METAI]]></name>
+        </category>
+        <category><id>167</id>
+            <parent>54</parent>
+            <name><![CDATA[Plus Plus plastikinėje pakuotėje]]></name>
+        </category>
+        <category><id>168</id>
+            <parent>54</parent>
+            <name><![CDATA[Plus Plus su RATAIS]]></name>
+        </category>
+        <category><id>68</id>
+            <parent>61</parent>
+            <name><![CDATA[Aktyvaus laisvalaikio žaislai]]></name>
+        </category>
+        <category><id>64</id>
+            <parent>61</parent>
+            <name><![CDATA[Laukiniai vakarai]]></name>
+        </category>
+        <category><id>70</id>
+            <parent>61</parent>
+            <name><![CDATA[Teminės figūrėlės]]></name>
+        </category>
+        <category><id>93</id>
+            <parent>92</parent>
+            <name><![CDATA[Marškinėliai su flomasteriais]]></name>
+        </category>
+        <category><id>94</id>
+            <parent>92</parent>
+            <name><![CDATA[Marškinėliai šviečiantys tamsoje]]></name>
+        </category>
+        <category><id>99</id>
+            <parent>92</parent>
+            <name><![CDATA[Spalvinimo knygelės su stebuklingu flomasteriu]]></name>
+        </category>
+        <category><id>145</id>
+            <parent>92</parent>
+            <name><![CDATA[Spalvinimo kilimėliai]]></name>
+        </category>
+        <category><id>190</id>
+            <parent>92</parent>
+            <name><![CDATA[Grafiti]]></name>
+        </category>
+        <category><id>191</id>
+            <parent>92</parent>
+            <name><![CDATA[Tapyba pagal skaičius]]></name>
+        </category>
+        <category><id>192</id>
+            <parent>92</parent>
+            <name><![CDATA[Deimantinės dėlionės]]></name>
+        </category>
+        <category><id>193</id>
+            <parent>92</parent>
+            <name><![CDATA[Linksmos pagalvės]]></name>
+        </category>
+        <category><id>96</id>
+            <parent>95</parent>
+            <name><![CDATA[STAX HYBRID konstruktoriai]]></name>
+        </category>
+        <category><id>97</id>
+            <parent>95</parent>
+            <name><![CDATA[STAX SYSTEM konstruktoriai]]></name>
+        </category>
+        <category><id>98</id>
+            <parent>95</parent>
+            <name><![CDATA[STAX JUNIOR konstruktoriai]]></name>
+        </category>
+        <category><id>140</id>
+            <parent>101</parent>
+            <name><![CDATA[Nuo 0 iki 1 metų]]></name>
+        </category>
+        <category><id>141</id>
+            <parent>101</parent>
+            <name><![CDATA[Nuo 1 iki 3 metų]]></name>
+        </category>
+        <category><id>142</id>
+            <parent>101</parent>
+            <name><![CDATA[Nuo 3 metų]]></name>
+        </category>
+        <category><id>132</id>
+            <parent>131</parent>
+            <name><![CDATA[Lėlės kūdikėliai]]></name>
+        </category>
+        <category><id>133</id>
+            <parent>131</parent>
+            <name><![CDATA[Lėlės vaikai]]></name>
+        </category>
+        <category><id>134</id>
+            <parent>131</parent>
+            <name><![CDATA[Reborn lėlės]]></name>
+        </category>
+        <category><id>135</id>
+            <parent>131</parent>
+            <name><![CDATA[Priedai]]></name>
+        </category>
+        <category><id>149</id>
+            <parent>148</parent>
+            <name><![CDATA[Konstruktoriai]]></name>
+        </category>
+        <category><id>150</id>
+            <parent>148</parent>
+            <name><![CDATA[Lėlės ir jų priedai]]></name>
+        </category>
+        <category><id>151</id>
+            <parent>148</parent>
+            <name><![CDATA[Kūrybiškumui]]></name>
+        </category>
+        <category><id>162</id>
+            <parent>148</parent>
+            <name><![CDATA[Muzikos instrumentai]]></name>
+        </category>
+        <category><id>163</id>
+            <parent>148</parent>
+            <name><![CDATA[Baldeliai, palapinės]]></name>
+        </category>
+        <category><id>164</id>
+            <parent>148</parent>
+            <name><![CDATA[Edukacinės dėlionės]]></name>
+        </category>
+        <category><id>153</id>
+            <parent>152</parent>
+            <name><![CDATA[Paplūdimio kilimėliai]]></name>
+        </category>
+        <category><id>154</id>
+            <parent>152</parent>
+            <name><![CDATA[Gėrimų laikikliai]]></name>
+        </category>
+        <category><id>155</id>
+            <parent>152</parent>
+            <name><![CDATA[Plaukimo ratai iki 20 kg]]></name>
+        </category>
+        <category><id>156</id>
+            <parent>152</parent>
+            <name><![CDATA[Plaukimo ratai vyresniems]]></name>
+        </category>
+        <category><id>157</id>
+            <parent>152</parent>
+            <name><![CDATA[Pripučiami fontanai]]></name>
+        </category>
+        <category><id>160</id>
+            <parent>158</parent>
+            <name><![CDATA[Vandeniu spalvinamos kortelės]]></name>
+        </category>
+        <category><id>161</id>
+            <parent>158</parent>
+            <name><![CDATA[Magnetiniai žaidimai]]></name>
+        </category>
+        <category><id>159</id>
+            <parent>158</parent>
+            <name><![CDATA[Magiški skėčiai]]></name>
+        </category>
+        <category><id>172</id>
+            <parent>158</parent>
+            <name><![CDATA[Indukų rinkiniai]]></name>
+        </category>
+        <category><id>174</id>
+            <parent>158</parent>
+            <name><![CDATA[Dantukų fėjos pagalvėlės]]></name>
+        </category>
+        <category><id>175</id>
+            <parent>158</parent>
+            <name><![CDATA[Kuprinės / piniginės]]></name>
+        </category>
+        <category><id>176</id>
+            <parent>158</parent>
+            <name><![CDATA[Sniego gaubliai]]></name>
+        </category>
+        <category><id>177</id>
+            <parent>158</parent>
+            <name><![CDATA[Papuošalų dėžutės]]></name>
+        </category>
+        <category><id>181</id>
+            <parent>180</parent>
+            <name><![CDATA[High Premium ŠUNŲ maistas]]></name>
+        </category>
+        <category><id>182</id>
+            <parent>180</parent>
+            <name><![CDATA[High Premium KAČIŲ maistas]]></name>
+        </category>
+        <category><id>183</id>
+            <parent>181</parent>
+            <name><![CDATA[Vidutinių ir didelių veislių šunims]]></name>
+        </category>
+        <category><id>184</id>
+            <parent>181</parent>
+            <name><![CDATA[Mažų veislių šunims]]></name>
+        </category>
+        <category><id>185</id>
+            <parent>181</parent>
+            <name><![CDATA[Išskirtinai fiziškai aktyviems šunims]]></name>
+        </category>
+        <category><id>186</id>
+            <parent>181</parent>
+            <name><![CDATA[Specialios sveikatos priežiūros šunims]]></name>
+        </category>
+        <category><id>187</id>
+            <parent>181</parent>
+            <name><![CDATA[Užkandžiai]]></name>
+        </category>
+        <category><id>188</id>
+            <parent>182</parent>
+            <name><![CDATA[Reguliarus maistas]]></name>
+        </category>
+        <category><id>189</id>
+            <parent>182</parent>
+            <name><![CDATA[Specialios priežiūros katėms]]></name>
+        </category>
+        <category><id>195</id>
+            <parent>182</parent>
+            <name><![CDATA[Šlapias kačių maistas]]></name>
+        </category>
+    </categories>
+</root>

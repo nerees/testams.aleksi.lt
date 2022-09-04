@@ -1,0 +1,76 @@
+# Cache, temp and personal files
+
+/.htaccess
+*.log
+/.well-known
+/.idea
+
+# Cache
+/cache/*
+!/cache/.htaccess
+!/cache/cachefs/index.php
+!/cache/deprecated.txt
+!/cache/index.php
+!/cache/purifier/index.php
+!/cache/push/activity
+!/cache/push/index.php
+!/cache/push/trends
+!/cache/sandbox/index.php
+!/cache/smarty/cache/index.php
+!/cache/smarty/compile/index.php
+!/cache/smarty/index.php
+!/cache/tcpdf/index.php
+
+
+
+themes/*/cache/*
+
+# Config
+
+config/settings.inc.php
+config/settings.old.php
+config/xml/*
+config/themes/*
+!config/xml/themes/default.xml
+themes/*/config/settings_*.json
+app/config/parameters.old.yml
+app/config/config.php
+
+
+# Vendors and dependencies
+
+bower_components/
+node_modules/
+composer.phar
+php-cs-fixer
+.grunt/*
+
+# MISC
+
+*sitemap.xml
+/robots.txt
+
+# Symfony
+
+/bin/
+/app/Resources/geoip/GeoLite2-City.mmdb
+/app/Resources/translations/*
+!/app/Resources/translations/default
+/app/config/parameters.yml
+/app/config/parameters.php
+/build/
+/phpunit.xml
+/var/*
+!/var/cache
+/var/cache/*
+!var/cache/.gitkeep
+!/var/logs
+/var/logs/*
+!var/logs/.gitkeep
+!/var/sessions
+/var/sessions/*
+!var/sessions/.gitkeep
+!var/SymfonyRequirements.php
+/vendor/
+/web/bundles/
+/modules/dpdbaltics/vendor/*

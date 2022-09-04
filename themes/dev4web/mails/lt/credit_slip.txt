@@ -1,0 +1,12 @@
+{shop_url}
+
+Sveiki, {firstname} {lastname},
+
+Užsakymo ID {order_name} - kredito kvitas
+
+Kredito kvitas buvo sukurtas Jūsų vardu užsakymui {order_name}.
+
+Peržiūrėti grąžinimo kvitą ir atsisiųsti sąskaitą galite nuėję į [Kredito kvitai]({order_slip_url}) skyrių savo kliento paskyroje.
+
+[{shop_name}]({shop_url})
+

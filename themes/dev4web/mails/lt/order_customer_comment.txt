@@ -1,0 +1,16 @@
+{shop_url}
+
+Sveiki, {firstname} {lastname},
+
+Kliento žinutė
+
+Gavote naują pranešimą apie užsakymą {order_name}.
+
+Klientas: {firstname} {lastname} ({email})
+
+Kliento žinutė:
+
+{message}
+
+[{shop_name}]({shop_url})
+

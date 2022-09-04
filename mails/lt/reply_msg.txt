@@ -1,0 +1,10 @@
+{shop_url}
+
+Sveiki, {firstname} {lastname},
+
+{reply}
+
+Prašome neatsakinėti šiuo el. pašto adresu, mes jo negausime. Norėdami atsakyti, paspauskite nuorodą: {link}
+
+[{shop_name}]({shop_url})
+

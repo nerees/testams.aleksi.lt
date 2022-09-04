@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>ps_emailsubscription</name>
+    <displayName><![CDATA[Naujienlai&scaron;kio prenumerata]]></displayName>
+    <version><![CDATA[2.7.0]]></version>
+    <description><![CDATA[Palaikykite ry&scaron;į su klientais taip, kaip norite, pridėkite formą parduotuvės pagrindiniame puslapyje ir leiskite visiems smalsuoliams užsiprenumeruoti jūsų naujienlai&scaron;kį.]]></description>
+    <author><![CDATA[PrestaShop]]></author>
+    <tab><![CDATA[]]></tab>
+	<confirmUninstall><![CDATA[At tikrai norite panaikinti jūsų kontaktinius duomenis?]]></confirmUninstall>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>
