@@ -1,4 +1,5 @@
 <?php
+
 /**
 * 2007-2021 PrestaShop
 *
@@ -36,6 +37,7 @@ use PrestaShop\PrestaShop\Adapter\Product\ProductColorsRetriever;
 use PrestaShop\PrestaShop\Core\Product\Search\ProductSearchContext;
 use PrestaShop\PrestaShop\Core\Product\Search\ProductSearchQuery;
 use PrestaShop\PrestaShop\Core\Product\Search\SortOrder;
+use PrestaShop\PrestaShop\Adapter\Presenter\Product\ProductPresenter;
 
 class Dev4webfront extends Module
 {
@@ -244,15 +246,14 @@ class Dev4webfront extends Module
 	
 	public function hookDisplayHome()
     {
-
-            $products_kids = $this->getProducts(3);
-            $products_women = $this->getProducts(4);
-            $products_men = $this->getProducts(5);
-            $products_home = $this->getProducts(6);
-            $products_kids_akcija = $this->getProducts(88);
-            $products_women_akcija = $this->getProducts(89);
-            $products_men_akcija = $this->getProducts(90);
-            $products_home_akcija = $this->getProducts(91);
+            $products_kids = $this->getCategoryDiscountedProducts(3);
+            $products_women = $this->getCategoryDiscountedProducts(4);
+            $products_men = $this->getCategoryDiscountedProducts(5);
+            $products_home = $this->getCategoryDiscountedProducts(6);
+            $products_kids_akcija = $this->getCategoryDiscountedProducts(3);
+            $products_women_akcija = $this->getCategoryDiscountedProducts(4);
+            $products_men_akcija = $this->getCategoryDiscountedProducts(5);
+            $products_home_akcija = $this->getCategoryDiscountedProducts(6);
             $products_discounts = array_merge($products_men_akcija,$products_home_akcija,$products_kids_akcija,$products_women_akcija);
             $products_akcija_show = shuffle($products_discounts);
 
@@ -412,7 +413,94 @@ class Dev4webfront extends Module
 
     public function countProducts($category) {
         $result = Db::getInstance()->ExecuteS('SELECT COUNT(`id_product`) as total FROM `'._DB_PREFIX_.'category_product` WHERE `id_category` = '.$category.' ');
-        //die(var_dump($result[0]['total']));
         return $result[0]['total'];
+    }
+
+    public function getCategoryDiscountedProducts($category)
+    {
+        $discountedIds = Category::getDiscountedProducts((int)$category);
+
+        if (empty($discountedIds)) {
+            return $this->getCategoryProducts($category);
+        }
+
+        $sql = '
+                SELECT * FROM `'._DB_PREFIX_.'product` WHERE `id_product` IN ('.implode(',', $discountedIds).') 
+                ORDER BY rand()
+                ';
+        $products = Db::getInstance()->executeS($sql);
+
+        if ($products) {
+            $assembler = new ProductAssembler($this->context);
+            $presenterFactory = new ProductPresenterFactory($this->context);
+            $presentationSettings = $presenterFactory->getPresentationSettings();
+            $presenter = new ProductListingPresenter(
+                new ImageRetriever(
+                    $this->context->link
+                ),
+                $this->context->link,
+                new PriceFormatter(),
+                new ProductColorsRetriever(),
+                $this->context->getTranslator()
+            );
+
+            $presentedProducts = [];
+
+            foreach ($products as $key => $rawProduct) {
+                $presentedProducts[] = $presenter->present(
+                    $presentationSettings,
+                    $assembler->assembleProduct($rawProduct),
+                    $this->context->language
+                );
+            }
+        }
+
+        if (count($presentedProducts) < 3) {
+            return $this->getCategoryProducts($category);
+        }
+
+        return $presentedProducts;
+    }
+
+    public function getCategoryProducts($category)
+    {
+        $categoryProductIds = Category::getCategoryProducts($category);
+
+        $sql = '
+                SELECT * FROM `'._DB_PREFIX_.'product` WHERE `id_product` IN ('.implode(',', $categoryProductIds).') 
+                ORDER BY rand() LIMIT 16 
+                ';
+        $products = Db::getInstance()->executeS($sql);
+
+        if ($products) {
+            $assembler = new ProductAssembler($this->context);
+            $presenterFactory = new ProductPresenterFactory($this->context);
+            $presentationSettings = $presenterFactory->getPresentationSettings();
+            $presenter = new ProductListingPresenter(
+                new ImageRetriever(
+                    $this->context->link
+                ),
+                $this->context->link,
+                new PriceFormatter(),
+                new ProductColorsRetriever(),
+                $this->context->getTranslator()
+            );
+
+            $presentedProducts = [];
+
+            foreach ($products as $key => $rawProduct) {
+                $presentedProducts[] = $presenter->present(
+                    $presentationSettings,
+                    $assembler->assembleProduct($rawProduct),
+                    $this->context->language
+                );
+            }
+        }
+
+//        if (count($presentedProducts) < 4) {
+//            return [];
+//        }
+
+        return $presentedProducts;
     }
 }

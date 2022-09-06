@@ -25,48 +25,48 @@
 
 <!--home.tpl dev4webfront -->
 {*Homepe tabs categories*}
-<div class="container home-categories-tabs hidden-sm-down">
-    <div class="categories-nav" id="categories-nav">
-        <div class="nav-left">
-            <span class="cat-nav-item active" id="akcijos">AKCIJOS</span>
-            <span class="cat-nav-item" id="vaikams">VAIKAMS</span>
-            <span class="cat-nav-item" id="moterims">MOTERIMS</span>
-            <span class="cat-nav-item" id="vyrams">VYRAMS</span>
-            <span class="cat-nav-item" id="namams">NAMAMS</span>
-        </div>
-        <div class="nav-right">
-            <span class="cat-nav-item-r mr-1 nn-prev" id="prev">ATGAL</span>
-            <span class="cat-nav-item-r nn-next" id="next">PIRMYN</span>
-        </div>
-    </div>
-    <div class="cat-slick-akcijos" id="cat-akcijos">
-        {foreach from=$products_akcija item="product"}
-            {include file="catalog/_partials/miniatures/product.tpl" product=$product}
-        {/foreach}
-    </div>
-    <div class="cat-slick-vaikams" id="cat-vaikams">
-        {foreach from=$products_kids_akcija item="product"}
-            {include file="catalog/_partials/miniatures/product.tpl" product=$product}
-        {/foreach}
-    </div>
-    <div class="cat-slick-moterims" id="cat-moterims">
-        {foreach from=$products_women_akcija item="product"}
-            {include file="catalog/_partials/miniatures/product.tpl" product=$product}
-        {/foreach}
-    </div>
-    <div class="cat-slick-vyrams" id="cat-vyrams">
-        {foreach from=$products_men_akcija item="product"}
-            {include file="catalog/_partials/miniatures/product.tpl" product=$product}
-        {/foreach}
-    </div>
-    <div class="cat-slick-namams" id="cat-namams">
-        {foreach from=$products_home_akcija item="product"}
-            {include file="catalog/_partials/miniatures/product.tpl" product=$product}
-        {/foreach}
-    </div>
-</div>
+{*<div class="container home-categories-tabs hidden-sm-down">*}
+{*    <div class="categories-nav" id="categories-nav">*}
+{*        <div class="nav-left">*}
+{*            <span class="cat-nav-item active" id="akcijos">AKCIJOS</span>*}
+{*            <span class="cat-nav-item" id="vaikams">VAIKAMS</span>*}
+{*            <span class="cat-nav-item" id="moterims">MOTERIMS</span>*}
+{*            <span class="cat-nav-item" id="vyrams">VYRAMS</span>*}
+{*            <span class="cat-nav-item" id="namams">NAMAMS</span>*}
+{*        </div>*}
+{*        <div class="nav-right">*}
+{*            <span class="cat-nav-item-r mr-1 nn-prev" id="prev">ATGAL</span>*}
+{*            <span class="cat-nav-item-r nn-next" id="next">PIRMYN</span>*}
+{*        </div>*}
+{*    </div>*}
+{*    <div class="cat-slick-akcijos" id="cat-akcijos">*}
+{*        {foreach from=$products_akcija item="product"}*}
+{*            {include file="catalog/_partials/miniatures/product.tpl" product=$product}*}
+{*        {/foreach}*}
+{*    </div>*}
+{*    <div class="cat-slick-vaikams" id="cat-vaikams">*}
+{*        {foreach from=$products_kids_akcija item="product"}*}
+{*            {include file="catalog/_partials/miniatures/product.tpl" product=$product}*}
+{*        {/foreach}*}
+{*    </div>*}
+{*    <div class="cat-slick-moterims" id="cat-moterims">*}
+{*        {foreach from=$products_women_akcija item="product"}*}
+{*            {include file="catalog/_partials/miniatures/product.tpl" product=$product}*}
+{*        {/foreach}*}
+{*    </div>*}
+{*    <div class="cat-slick-vyrams" id="cat-vyrams">*}
+{*        {foreach from=$products_men_akcija item="product"}*}
+{*            {include file="catalog/_partials/miniatures/product.tpl" product=$product}*}
+{*        {/foreach}*}
+{*    </div>*}
+{*    <div class="cat-slick-namams" id="cat-namams">*}
+{*        {foreach from=$products_home_akcija item="product"}*}
+{*            {include file="catalog/_partials/miniatures/product.tpl" product=$product}*}
+{*        {/foreach}*}
+{*    </div>*}
+{*</div>*}
 
-<div class="container go-to-shop-button">
+<div class="container go-to-shop-button" style="margin-top: 40px">
     <div class="separator">
         <div class="line"></div>
         <h2><a href="/sumazinta-kaina"><span class="vbtn">EITI Į PARDUOTUVĘ</span></a></h2>
