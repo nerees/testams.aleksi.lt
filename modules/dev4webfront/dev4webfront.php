@@ -418,7 +418,8 @@ class Dev4webfront extends Module
 
     public function getCategoryDiscountedProducts($category)
     {
-        $discountedIds = Category::getDiscountedProducts((int)$category);
+        //$discountedIds = Category::getDiscountedProducts((int)$category);
+        $discountedIds = Category::getCategoryBestSaleProducts($category, $this->context->language->id);
 
         if (empty($discountedIds)) {
             return $this->getCategoryProducts($category);
@@ -464,7 +465,8 @@ class Dev4webfront extends Module
 
     public function getCategoryProducts($category)
     {
-        $categoryProductIds = Category::getCategoryProducts($category);
+        $categoryProductIds = Category::getCategoryProducts($category, $this->context->language->id);
+        //$categoryProductIds = Category::getCategoryBestSaleProducts($category, $this->context->language->id);
 
         $sql = '
                 SELECT * FROM `'._DB_PREFIX_.'product` WHERE `id_product` IN ('.implode(',', $categoryProductIds).') 
