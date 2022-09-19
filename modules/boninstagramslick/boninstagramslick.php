@@ -33,9 +33,7 @@ class Boninstagramslick extends Module
         $this->tab = 'front_office_features';
         $this->version = '2.0.0';
         $this->bootstrap = true;
-        $this->author = 'Bonpresta';
-        $this->module_key = '41ab177289d8e25d96cbb46325e817a8';
-        $this->author_address = '0xf66a8C20b52eD708FB78F0D347C9e0Bc7c6b3073';
+        $this->author = 'D4W';
         parent::__construct();
         $this->displayName = $this->l('Instagram Carousel Social Feed Photos');
         $this->description = $this->l('Display instagram carousel feed photos');
@@ -60,6 +58,15 @@ class Boninstagramslick extends Module
             'BONINSTAGRAMSLICK_LOOP' => true,
             'BONINSTAGRAMSLICK_NAV' => true,
             'BONINSTAGRAMSLICK_DOTS' => false,
+            'BONINSTAGRAMSLICK_IG_APP_ID' => '',
+            'BONINSTAGRAMSLICK_IG_APP_SECRET' => '',
+            'BONINSTAGRAMSLICK_IG_APP_CALLBACK' => '',
+            'BONINSTAGRAMSLICK_IG_API_URL' => 'https://graph.instagram.com/',
+            'BONINSTAGRAMSLICK_IG_OAUTH_URL' => 'https://api.instagram.com/oauth/authorize',
+            'BONINSTAGRAMSLICK_IG_OAUTH_GET_TOKEN_URL' => 'https://api.instagram.com/oauth/access_token',
+            'BONINSTAGRAMSLICK_IG_OAUTH_EXCHANGE_TOKEN_URL' => 'https://graph.instagram.com/access_token',
+            'BONINSTAGRAMSLICK_IG_OAUTH_REFRESH_TOKEN_URL' => 'https://api.instagram.com/refresh_access_token',
+            'BONINSTAGRAMSLICK_TOKEN' => ''
         );
 
         return $res;
@@ -157,6 +164,18 @@ class Boninstagramslick extends Module
             if (!Validate::isUnsignedInt(Tools::getValue('BONINSTAGRAMSLICK_MARGIN'))) {
                 $errors[] = $this->l('Bad autoplay speed format');
             }
+        }
+
+        if (Tools::isEmpty(Tools::getValue('BONINSTAGRAMSLICK_IG_APP_ID'))) {
+            $errors[] = $this->l('APP ID is required.');
+        }
+
+        if (Tools::isEmpty(Tools::getValue('BONINSTAGRAMSLICK_IG_APP_SECRET'))) {
+            $errors[] = $this->l('APP SECRET is required.');
+        }
+
+        if (Tools::isEmpty(Tools::getValue('BONINSTAGRAMSLICK_IG_APP_CALLBACK'))) {
+            $errors[] = $this->l('IG_APP_CALLBACK is required.');
         }
 
         if (count($errors)) {
@@ -326,6 +345,27 @@ class Boninstagramslick extends Module
                             )
                         ),
                     ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Instagram APP ID'),
+                        'name' => 'BONINSTAGRAMSLICK_IG_APP_ID',
+                        'col' => 8,
+                        'required' => true,
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Instagram APP SECRET'),
+                        'name' => 'BONINSTAGRAMSLICK_IG_APP_SECRET',
+                        'col' => 8,
+                        'required' => true,
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Instagram APP CALLBACK'),
+                        'name' => 'BONINSTAGRAMSLICK_IG_APP_CALLBACK',
+                        'col' => 8,
+                        'required' => true,
+                    )
                 ),
                 'submit' => array(
                     'title' => $this->l('Save'),
@@ -355,7 +395,7 @@ class Boninstagramslick extends Module
             'id_language' => $this->context->language->id
         );
 
-        return $helper->generateForm(array($this->getConfigInstagram()));
+        return $helper->generateForm(array($this->getConfigInstagram())) . $this->checkAuthorization();
     }
 
 
@@ -384,6 +424,7 @@ class Boninstagramslick extends Module
         Media::addJsDefL('BONINSTAGRAMSLICK_TYPE', Configuration::get('BONINSTAGRAMSLICK_TYPE'));
         Media::addJsDefL('BONINSTAGRAMSLICK_LIMIT', Configuration::get('BONINSTAGRAMSLICK_LIMIT'));
         Media::addJsDefL('user_tag', Configuration::get('BONINSTAGRAMSLICK_TAG'));
+        Media::addJsDefL('BONINSTAGRAMSLICK_TOKEN', Configuration::get('BONINSTAGRAMSLICK_TOKEN'));
     }
 
     public function hookDisplayHeader()
@@ -459,5 +500,178 @@ class Boninstagramslick extends Module
     public function hookdisplayFooterBefore()
     {
         return $this->hookDisplayHome();
+    }
+
+    public function appCallback($code)
+    {
+        $this->getOauthToken($code);
+    }
+
+    public function getOauthToken($code) {
+        $postData = array();
+        $postData["client_id"] = Configuration::get('BONINSTAGRAMSLICK_IG_APP_ID');
+        $postData["client_secret"] = Configuration::get('BONINSTAGRAMSLICK_IG_APP_SECRET');
+        $postData["code"] = $code;
+        $postData["grant_type"] = "authorization_code";
+        $postData["redirect_uri"] = Configuration::get('BONINSTAGRAMSLICK_IG_APP_CALLBACK');
+
+        $headers = array("Content-Type: multipart/form-data;");
+
+        $url = Configuration::get('BONINSTAGRAMSLICK_IG_OAUTH_GET_TOKEN_URL');
+        $response = $this->postInsta($url, $postData, $headers);
+        //var_dump($response);
+
+        if (isset($response["user_id"])) {
+            // yay we got a response
+            $ig_user_id = $response["user_id"];
+            $ig_short_access_token = $response["access_token"];
+            $ig_long_access_token = $this->getLongOauthToken($ig_short_access_token);
+
+            // now let's save our "user" to the database
+            $fake_user_data_array = array();
+            $fake_user_data_array["ig_user_id"] = $ig_user_id;
+            $fake_user_data_array["ig_access_token"] = $ig_long_access_token;
+            $fake_user_data_array["ig_access_token_last_updated"] = time();
+            $fake_user_data_array["posts"] = array();
+            Configuration::updateValue('BONINSTAGRAMSLICK_TOKEN', $ig_long_access_token);
+            //$this->writeJsonToFile($fake_user_data_array);
+        }
+    }
+
+    public function getLongOauthToken($short_access_token) {
+        $getData = array();
+        $getData["client_id"] = Configuration::get('BONINSTAGRAMSLICK_IG_APP_ID');
+        $getData["client_secret"] = Configuration::get('BONINSTAGRAMSLICK_IG_APP_SECRET');
+        $getData["access_token"] = $short_access_token;
+        $getData["grant_type"] = "ig_exchange_token";
+
+        $url = Configuration::get('BONINSTAGRAMSLICK_IG_OAUTH_EXCHANGE_TOKEN_URL');
+
+        $response = $this->getInsta($url, $getData);
+        var_dump($response);
+
+        if (isset($response["access_token"])) {
+            return $response["access_token"];
+        }
+    }
+
+    public function getLoginURL() {
+
+        $url = Configuration::get('BONINSTAGRAMSLICK_IG_OAUTH_URL');
+        $url .= "?client_id=" . Configuration::get('BONINSTAGRAMSLICK_IG_APP_ID');
+        $url .= "&redirect_uri=" . Configuration::get('BONINSTAGRAMSLICK_IG_APP_CALLBACK');
+        $url .= "&scope=user_profile,user_media";
+        $url .= "&response_type=code";
+        return $url;
+    }
+
+    public function checkAuthorization()
+    {
+        if (!Configuration::get('BONINSTAGRAMSLICK_TOKEN')) {
+            $url = $this->getLoginURL();
+            return '<p><a href="'.$url.'">'.$url.'</a></p>';
+        }
+    }
+
+    public function getInsta($url, $data, $headers = []) {
+        // build the url with the data
+        if (!empty($data)) {
+            $url .= "?" . http_build_query($data);
+        }
+
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        if (!empty($headers)) {
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        }
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($curl);
+
+        if (isJson($response)) {
+            $response = json_decode($response, true);
+        }
+
+        return $response;
+    }
+
+    /**
+     * Makes a GET request with URL variables
+     *
+     * @param string $url
+     * @param array $data
+     * @param array $headers
+     * @return string
+     */
+    public function postInsta($url, $data, $headers = []) {
+        try {
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_HEADER, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_FAILONERROR, false);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($curl, CURLOPT_POST, true);
+            if (!empty($data)) {
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            }
+            $response = curl_exec($curl);
+
+            $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            if ($status != 200) {
+                die(curl_error($curl));
+            }
+            curl_close($curl);
+
+            $response = json_decode($response, true);
+
+            return $response;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function isJson($string) {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
+    }
+
+    public function writeJsonToFile($jsonArray, $filename='fake_database.txt') {
+        try {
+            $fp = fopen($filename, 'w');
+            fwrite($fp, json_encode($jsonArray, JSON_PRETTY_PRINT));
+            fclose($fp);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function getMedia($ig_access_token, $existing_data = []) {
+        $media_array = $existing_data;  // start with existing data
+        $url = Configuration::get('BONINSTAGRAMSLICK_IG_API_URL') . "me/media?fields=id,caption&access_token=" . $ig_access_token;
+        $response = $this->getInsta($url, []);
+        if (!empty($response) && isset($response["data"])) {
+            foreach ($response["data"] as $post_data) {
+
+                $ig_media_id = $post_data["id"];
+                if (isset($existing_data[$ig_media_id])) {
+                    continue;
+                }
+
+                $media = $this->getMediaByID($ig_media_id, $ig_access_token);
+                //$media["caption"] = $post_data["caption"];
+                $media_array[$ig_media_id] = $media;
+            }
+        }
+
+        // todo: should probably add a function to order by timestamp, but that can wait
+
+        return $media_array;
+    }
+
+    public function getMediaByID($ig_media_id, $ig_access_token) {
+        $url = Configuration::get('BONINSTAGRAMSLICK_IG_API_URL') . "$ig_media_id?fields=id,media_type,media_url,username,timestamp,caption&access_token=" . $ig_access_token;
+        $response = $this->getInsta($url, []);
+        return $response;
     }
 }

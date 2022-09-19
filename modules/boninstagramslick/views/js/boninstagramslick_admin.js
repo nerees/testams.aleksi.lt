@@ -70,9 +70,10 @@ $(document).ready(function () {
                             url: base_dir + 'controllers/back/insta_parser.php',
 
                             success: function(msg) {
-                                // console.log(msg)
+                                 console.log(msg);
                             },
                             failure : function(msg) {
+                                console.log(msg);
                             }
                         });
 
@@ -93,6 +94,7 @@ $(document).ready(function () {
                 ~~(Math.random() * 9999) +
                 '-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=https://www.instagram.com/'+ user_id + '/',
                 function (json) {
+                    console.log(json);
                     var pattern = /_sharedData = ({.*);<\/script>/m,
                         json = JSON.parse(pattern.exec(json)[1]),
                         edges =
@@ -120,6 +122,7 @@ $(document).ready(function () {
                                 console.log(msg)
                             },
                             failure : function(msg) {
+                                console.log(msg)
                             }
                         });
 
