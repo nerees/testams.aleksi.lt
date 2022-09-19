@@ -24,7 +24,7 @@
  *}
 
 <script type="text/javascript">
-  var productCommentPostErrorMessage = '{l s='Klaida siunčiant komentarą.' d='Modules.Productcomments.Shop' js=1}';
+  var productCommentPostErrorMessage = '{l s='Sorry, your review cannot be posted.' d='Modules.Productcomments.Shop' js=1}';
 </script>
 
 <div id="post-product-comment-modal" class="modal fade product-comment-modal" role="dialog" aria-hidden="true">
@@ -89,16 +89,16 @@
           <div class="row">
             {if !$logged}
               <div class="col-md-8 col-sm-8">
-                <label class="form-label" for="comment_title">{l s='Vardas' d='Modules.Productcomments.Shop'}<sup class="required">*</sup></label>
+                <label class="form-label" for="comment_title">{l s='Title' d='Modules.Productcomments.Shop'}<sup class="required">*</sup></label>
                 <input name="comment_title" type="text" value=""/>
               </div>
               <div class="col-md-4 col-sm-4">
-                <label class="form-label" for="customer_name">{l s='Jūsų vardas' d='Modules.Productcomments.Shop'}<sup class="required">*</sup></label>
+                <label class="form-label" for="customer_name">{l s='Your name' d='Modules.Productcomments.Shop'}<sup class="required">*</sup></label>
                 <input name="customer_name" type="text" value=""/>
               </div>
             {else}
               <div class="col-md-12 col-sm-12">
-                <label class="form-label" for="comment_title">{l s='Tema' d='Modules.Productcomments.Shop'}<sup class="required">*</sup></label>
+                <label class="form-label" for="comment_title">{l s='Title' d='Modules.Productcomments.Shop'}<sup class="required">*</sup></label>
                 <input name="comment_title" type="text" value=""/>
               </div>
             {/if}
@@ -106,12 +106,18 @@
 
           <div class="row">
             <div class="col-md-12 col-sm-12">
-              <label class="form-label" for="comment_content">{l s='Atsiliepimas' d='Modules.Productcomments.Shop'}<sup class="required">*</sup></label>
+              <label class="form-label" for="comment_content">{l s='Review' d='Modules.Productcomments.Shop'}<sup class="required">*</sup></label>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12 col-sm-12">
               <textarea name="comment_content"></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+              {hook h='displayGDPRConsent' mod='psgdpr' id_module=$id_module}
             </div>
           </div>
 

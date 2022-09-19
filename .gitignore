@@ -75,3 +75,4 @@ php-cs-fixer
 /web/bundles/
 /modules/dpdbaltics/vendor/*
 /var/
+/modules/amazzingfilter/config_lt.xml
