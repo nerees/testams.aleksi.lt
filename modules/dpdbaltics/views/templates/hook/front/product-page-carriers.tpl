@@ -8,8 +8,7 @@
  *
  *  International Registered Trademark & Property of INVERTUS, UAB
  *}
-{*$carriers|var_dump*}
-{*padaryti pagal krep6elio suma*}
+
 <div id="product-page-carriers">
     {foreach $carriers as $carrier}
         <div class="product-carrier-container clearfix container">
@@ -30,5 +29,4 @@
             </div>
         </div>
     {/foreach}
-    <p>Nuo 50€ - nemokamas pristatymas!</p>
 </div>

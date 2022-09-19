@@ -23,11 +23,14 @@ class Config
     const LATVIA_ISO_CODE = 'LV';
     const ESTONIA_ISO_CODE = 'EE';
     const PORTUGAL_ISO_CODE = 'PT';
+    const VALID_TRACKING_URL_COUNTRIES = ['LT', 'EE', 'LV'];
 
     const AVAILABLE_PUDO_COD_IDS = [
         'EE90',
         'EE10',
-        'LT90'
+        'LT90',
+        'LV90',
+        'LV10'
     ];
 
     /** In seconds. Used as minimum execution time for some of the scripts.  */
@@ -71,6 +74,7 @@ class Config
     const IMPORT_PARCEL_INFO_BLOCK_FIELD = 'DPD_PARCEL_IMPORT_INFO_BLOCK_FIELD';
     const DPD_PARCEL_IMPORT_COUNTRY_SELECTOR = 'DPD_PARCEL_IMPORT_COUNTRY_SELECTOR';
     const IMPORT_FILE = 'DPD_IMPORT_FILE';
+    const PRESTASHOP_DPD_CARRIER_REGENERATE = 'PRESTASHOP_DPD_CARRIER_REGENERATE';
 
     /**
      * Please note those are also used as file names for exports, so they must be without spaces
@@ -89,7 +93,7 @@ class Config
     const LABEL_PRINT_OPTION = 'DPD_LABEL_PRINT_OPTION';
     const DEFAULT_LABEL_FORMAT = 'DPD_DEFAULT_LABEL_FORMAT';
     const DEFAULT_LABEL_POSITION = 'DPD_DEFAULT_LABEL_POSITION';
-
+    const SEND_EMAIL_ON_PARCEL_CREATION = 'DPD_SEND_EMAIL_TO_CUSTOMER';
     const MULTIPLE_LABEL_NAME_MAX_SIZE = 44;
 
     const PHONE_CODE_PREFIX = '+';
@@ -228,6 +232,8 @@ class Config
     const PRODUCT_TYPE_SAME_DAY_DELIVERY = '274';
     const PS_VERSION_1_7_7 = '1.7.7.0';
 
+    const COUNTRY_ISO_CODES_WITH_MIXED_CHARACTERS = ['IE', 'GB', 'NL'];
+
     const PRODUCT_NAME_B2B = [
         'LT' => 'Pristatymas privatiems asmenims',
         'EE' => 'DPD kuller',
@@ -253,7 +259,7 @@ class Config
     const PRODUCT_NAME_PUDO_COD = [
         'LT' => 'DPD Paštomatas, atsiskaitymas grynaisiais',
         'EE' => 'DPD pakiautomaat lunamaksega',
-        'LV' => 'DPD Pickup COD',
+        'LV' => 'Piegādes uz Paku Skapjiem un Paku Bodēm, COD',
         'EN' => 'DPD Pickup COD',
     ];
 
@@ -267,7 +273,7 @@ class Config
     const PRODUCT_NAME_SATURDAY_DELIVERY_COD = [
         'LT' => 'Pristatymas Šestadienį, atsiskaitymas grynaisiais',
         'EE' => 'DPD kuller laupäeval lunamaksega',
-        'LV' => 'Saturday Delivery COD',
+        'LV' => 'Piegāde sestdienā, COD',
         'EN' => 'Saturday Delivery COD',
     ];
 
@@ -277,6 +283,13 @@ class Config
         'LV' => 'Same day Delivery',
         'EN' => 'Same day Delivery',
     ];
+
+    const ERROR_COULD_NOT_SAVE_PHONE_NUMBER = 501;
+    const ERROR_BAD_PHONE_NUMBER_PREFIX = 502;
+    const ERROR_PHONE_EMPTY = 505;
+    const ERROR_PHONE_HAS_INVALID_CHARACTERS = 506;
+    const ERROR_PHONE_HAS_INVALID_LENGTH = 507;
+    const ERROR_INVALID_PUDO_TERMINAL = 508;
 
     public static function getProducts($webServiceCountry = 'EN')
     {

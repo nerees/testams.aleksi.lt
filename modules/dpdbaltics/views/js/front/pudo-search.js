@@ -20,6 +20,10 @@ $(document).ready(function () {
         var street = $('input[name="dpd-street"]').val();
         updateParcelBlock(city, street);
     });
+
+    if ($('.dpd-checkout-pickup-container').is(':visible')) {
+        updateStreet();
+    }
 });
 
 function updateStreet() {
@@ -29,7 +33,32 @@ function updateStreet() {
     }
 }
 
+$( document ).ajaxComplete(function( event, request, settings ) {
+    let defaultCarrier =  $('.custom-radio > input:checked');
+    togglePhoneRequiredField(defaultCarrier)
+    var applicableControllers = ['order', 'order-opc', 'ShipmentReturn', 'supercheckout'];
+    if (!inArray(currentController, applicableControllers)) {
+        return;
+    }
+    var method = DPDgetUrlParam('action', settings.url)
+
+    if (!method) {
+        method = DPDgetUrlParam('method', settings.data)
+    }
+
+    if ( (method === 'selectDeliveryOption' || method === 'updateCarrier') && !isPudoPointSelected) {
+        updateStreet()
+    }
+});
+
 function updateStreetSelect(city) {
+
+    var $this = $(this);
+    var $pudoId = $this.data('id');
+    var $container = $this.closest('.dpd-pudo-container');
+    var $submitInput = $container.find('input[name="dpd-pudo-id"]');
+    var $idReference = $container.data('id');
+
     $.ajax(dpdHookAjaxUrl, {
         type: 'POST',
         data: {
@@ -118,6 +147,7 @@ function updateParcelBlock(city, street) {
             }
             if (response.status) {
                 DPDchangePickupPoints($parent, response.template)
+                reselectDataPopover()
             }
         },
         error: function (response) {
@@ -139,4 +169,46 @@ function DPDdisplayMessage(parent, template) {
 function DPDremoveMessage(parent) {
     var $messageContainer = parent.find('.dpd-message-container');
     $messageContainer.html('');
+}
+
+function DPDgetUrlParam(sParam, string)
+{
+    var sPageURL = decodeURIComponent(string),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+}
+function inArray(needle, haystack) {
+    var length = haystack.length;
+    for(var i = 0; i < length; i++) {
+        if(haystack[i] == needle){
+            return true;
+        }
+    }
+    return false;
+}
+
+function togglePhoneRequiredField(defaultCarrier) {
+    let deliveryMethod = $('.custom-radio > input');
+    let currentCarrier = defaultCarrier.props('defaultValue');
+    let dpdPhoneInputs = $('input[name="dpd-phone"]');
+
+    deliveryMethod.on('change', function(event) {
+        currentCarrier  = 'dpd-carrier-'+ event.currentTarget.value;
+        dpdPhoneInputs.each(function (index, input) {
+            if($(input).attr('id') + ',' === currentCarrier) {
+                $(input).prop("required", true);
+            } else {
+                $(input).prop("required", false);
+            }
+        })
+    });
 }

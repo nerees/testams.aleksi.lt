@@ -6,16 +6,19 @@ use Address;
 use Country;
 use DPDAddressTemplate;
 use DPDProduct;
+use Invertus\dpdBaltics\Adapter\AddressAdapter;
 use Invertus\dpdBaltics\Config\Config;
 use Invertus\dpdBaltics\DTO\ShipmentData;
 use Invertus\dpdBaltics\Repository\CodPaymentRepository;
+use Invertus\dpdBaltics\Service\Parcel\ParcelShopService;
 use Invertus\dpdBalticsApi\Api\DTO\Request\ShipmentCreationRequest;
 use Invertus\dpdBalticsApi\Factory\APIRequest\ShipmentCreationFactory;
+use Invertus\dpdBaltics\Service\Email\Handler\ParcelTrackingEmailHandler;
+use Invertus\dpdBaltics\Util\StringUtility;
 use Message;
 
 class ShipmentApiService
 {
-
     /**
      * @var ShipmentCreationFactory
      */
@@ -24,15 +27,39 @@ class ShipmentApiService
      * @var CodPaymentRepository
      */
     private $codPaymentRepository;
+    /**
+     * @var ParcelTrackingEmailHandler
+     */
+    private $emailHandler;
+    /**
+     * @var ParcelShopService
+     */
+    private $parcelShopService;
+    /**
+     * @var AddressAdapter
+     */
+    private $addressAdapter;
 
     public function __construct(
         ShipmentCreationFactory $shipmentCreationFactory,
-        CodPaymentRepository $codPaymentRepository
+        CodPaymentRepository $codPaymentRepository,
+        ParcelTrackingEmailHandler $emailHandler,
+        ParcelShopService $parcelShopService,
+        AddressAdapter $addressAdapter
     ) {
         $this->shipmentCreationFactory = $shipmentCreationFactory;
         $this->codPaymentRepository = $codPaymentRepository;
+        $this->emailHandler = $emailHandler;
+        $this->parcelShopService = $parcelShopService;
+        $this->addressAdapter = $addressAdapter;
     }
 
+    /**
+     * @throws \PrestaShopDatabaseException
+     * @throws \PrestaShopException
+     * @throws \Invertus\dpdBaltics\Exception\ParcelEmailException
+     * @throws \SmartyException
+     */
     public function createShipment($addressId, ShipmentData $shipmentData, $orderId)
     {
         $address = new Address($addressId);
@@ -44,13 +71,28 @@ class ShipmentApiService
         $phoneNumber = $shipmentData->getPhoneArea() . $shipmentData->getPhone();
         $dpdProduct = new DPDProduct($shipmentData->getProduct());
         $parcelType = $dpdProduct->getProductReference();
+        $country = Country::getIsoById($address->id_country);
+        $postCode = $address->postcode;
+        $hasAddressFields = (bool) !$postCode || !$firstName || !$address->city || !$country;
 
-        $postCode = preg_replace('/[^0-9]/', '', $address->postcode);
+        // IF prestashop allows, we take selected parcel terminal address in case information is missing in checkout address in specific cases.
+        if (($hasAddressFields) && $shipmentData->isPudo()) {
+            $parcel = $this->parcelShopService->getParcelShopByShopId($shipmentData->getSelectedPudoId());
+            $selectedParcel = is_array($parcel) ? reset($parcel) : $parcel;
+            $firstName = $selectedParcel->getCompany();
+            $postCode = $selectedParcel->getPCode();
+            $address->address1 = $selectedParcel->getStreet();
+            $address->city = $selectedParcel->getCity();
+            $country = $selectedParcel->getCountry();
+        }
+
+        $postCode = $this->addressAdapter->formatPostCodeByCountry($postCode, $country);
+
         $shipmentCreationRequest = new ShipmentCreationRequest(
             $firstName,
             $address->address1,
             $address->city,
-            Country::getIsoById($address->id_country),
+            $country,
             $postCode,
             $shipmentData->getParcelAmount(),
             $parcelType,
@@ -70,9 +112,11 @@ class ShipmentApiService
         }
 
         $cartMessage = Message::getMessagesByOrderId($orderId);
+
         if ($cartMessage)
         {
-            $shipmentCreationRequest->setRemark($cartMessage[0]['message']);
+            $trimmedRemarkMessage = StringUtility::trimString($cartMessage[0]['message']);
+            $shipmentCreationRequest->setRemark(StringUtility::removeSpecialCharacters($trimmedRemarkMessage));
         }
 
         if ($shipmentData->getSelectedPudoId()) {
@@ -91,7 +135,13 @@ class ShipmentApiService
         }
         $shipmentCreator = $this->shipmentCreationFactory->makeShipmentCreation();
 
-        return $shipmentCreator->createShipment($shipmentCreationRequest);
+        $shipmentResponse = $shipmentCreator->createShipment($shipmentCreationRequest);
+
+        if ($shipmentResponse->getStatus() === "ok" && $this->isTrackingEmailAllowed()) {
+            $this->emailHandler->handle($orderId, $shipmentResponse->getPlNumber());
+        }
+
+        return $shipmentResponse;
     }
 
     public function createReturnServiceShipment($addressTemplateId)
@@ -138,4 +188,10 @@ class ShipmentApiService
 
         return $shipmentCreationRequest;
     }
+
+    private function isTrackingEmailAllowed()
+    {
+        return (bool) \Configuration::get(Config::SEND_EMAIL_ON_PARCEL_CREATION);
+    }
+
 }

@@ -31,6 +31,20 @@ class ProductRepository extends AbstractEntityRepository
         return $this->db->getValue($query);
     }
 
+    public function getAllActiveDpdProductReferences($onlyId = false)
+    {
+        $query = new DbQuery();
+        if ($onlyId) {
+            $query->select('id_reference');
+        } else {
+            $query->select('*');
+        }
+        $query->from('dpd_product');
+        $query->where('active = 1');
+
+        return $this->db->executeS($query);
+    }
+
     public function deleteOldData()
     {
         $this->db->delete('dpd_product_shop');
@@ -204,5 +218,19 @@ class ProductRepository extends AbstractEntityRepository
             'dpd_product',
             '`product_reference`= "' . pSQL($productReference) . '"'
         );
+    }
+
+    /**
+     * @param $carrierId
+     * @return array|bool|object|null
+     */
+    public function findProductByProductReference($carrierReference)
+    {
+        $query = new DbQuery();
+        $query->select('*');
+        $query->from('dpd_product', 'dsc');
+        $query->where('dsc.product_reference = "'. pSQL($carrierReference).'"');
+
+        return $this->db->getRow($query) ?: null;
     }
 }

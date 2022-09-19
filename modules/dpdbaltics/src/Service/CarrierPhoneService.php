@@ -16,6 +16,7 @@ use Address;
 use Cart;
 use Context;
 use DPDBaltics;
+use Invertus\dpdBaltics\Exception\DpdCarrierException;
 use Invertus\dpdBaltics\ORM\EntityManager;
 use Invertus\dpdBaltics\Repository\OrderRepository;
 use Invertus\dpdBaltics\Repository\PhonePrefixRepository;
@@ -59,14 +60,14 @@ class CarrierPhoneService
         $this->orderRepository = $orderRepository;
     }
 
-    public function getCarrierPhoneTemplate($cartId)
+    public function getCarrierPhoneTemplate($cartId, $carrierReference)
     {
         $cart = new Cart($cartId);
 
         $phone = '';
 
         /** @var OrderRepository $orderRepository */
-        $orderRepository = $this->module->getModuleContainer()->get(OrderRepository::class);
+        $orderRepository = $this->module->getModuleContainer()->get('invertus.dpdbaltics.repository.order_repository');
 
         $dpdOrderPhone = $orderRepository->getPhoneByIdCart($cart->id);
 
@@ -84,9 +85,11 @@ class CarrierPhoneService
 
         $phonePrefix = $this->context->country->call_prefix;
         $this->context->controller->addJqueryPlugin('chosen');
+        //Formats phone number, removes prefix when added on main field
         $phone = $this->removePhonePrefix($phone, $phonePrefix);
         $this->context->smarty->assign(
             [
+                'carrierReference' => $carrierReference,
                 'dpdPhone' => $phone,
                 'dpdPhoneArea' => $phoneData['mobile_phone_code_list'],
                 'contextPrefix' => Config::PHONE_CODE_PREFIX . $phonePrefix,
@@ -108,13 +111,16 @@ class CarrierPhoneService
         } else {
             $dpdOrderPhone = new DPDOrderPhone($idDpdOrderPhone);
         }
-
-        $dpdOrderPhone->phone = $dpdPhone;
+        //Formats phone number, removes prefix when added on main field
+        $dpdOrderPhone->phone = $this->removePhonePrefix($dpdPhone, $dpdPhoneCode);
         $dpdOrderPhone->phone_area = $dpdPhoneCode;
         $dpdOrderPhone->id_cart = $idCart;
 
         if (!$dpdOrderPhone->save()) {
-            return false;
+           throw new DpdCarrierException(
+               'Could not save phone number',
+               Config::ERROR_COULD_NOT_SAVE_PHONE_NUMBER
+           );
         }
 
         return true;
@@ -135,4 +141,5 @@ class CarrierPhoneService
 
         return $phone;
     }
+
 }
