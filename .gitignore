@@ -4,6 +4,8 @@
 *.log
 /.well-known
 /.idea
+**/img/tmp/*
+**/.DS_Store
 
 # Cache
 /cache/*
