@@ -32,7 +32,7 @@
   <section id="main">
 
     {block name='product_list_header'}
-      <h1 id="js-product-list-header" class="h2">{$listing.label}</h1>
+      {*<h1 id="js-product-list-header" class="h2">{$listing.label}</h1>*}
     {/block}
 
     {*block name='subcategory_list'}
@@ -57,7 +57,12 @@
             {$listing.rendered_active_filters nofilter}
           </div>
         {/block}
-
+          <a href="javascript:void(0);" class="btn-primary af-mobile">
+              <div>
+                  <span class="icon-filter compact-toggle-icon"></span>
+                  <span class="">Filtruoti produktus</span>
+              </div>
+          </a>
         <div>
           {block name='product_list'}
             {include file='catalog/_partials/products.tpl' listing=$listing}

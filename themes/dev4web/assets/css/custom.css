@@ -109,6 +109,18 @@ body {
     font-size: 16px;
     font-weight: 400;
 }
+#header .nn-main-menu .sub-menu a[data-depth="3"]{
+    color: #000000;
+    text-transform: none;
+    font-size: 16px;
+    font-weight: 400;
+}
+#header .nn-main-menu .sub-menu a[data-depth="4"]{
+    color: #000000;
+    text-transform: none;
+    font-size: 16px;
+    font-weight: 400;
+}
 .top-menu .sub-menu {
     z-index: 18;
     width: calc(100% - 30px);
@@ -617,6 +629,14 @@ body {
     font-weight: 400;
     padding: 0 0.225rem 0.225rem 0;
 }
+.top-menu .category a[data-depth="3"] {
+    font-weight: 400;
+    padding: 0 0.225rem 0.225rem 0;
+}
+.top-menu .category a[data-depth="4"] {
+    font-weight: 400;
+    padding: 0 0.225rem 0.225rem 0;
+}
 .popover {
     padding-bottom: 30px;
 }
@@ -926,5 +946,47 @@ body {
 @media only screen and (max-width: 360px) {
     .tas-mobile-logo {
         height: 20px;
+    }
+}
+
+#category-description {
+    margin-bottom: 10px;
+    overflow-y: hidden;
+    height: 13.8em;
+}
+.block-category .block-category-inner {
+    flex-direction: column;
+}
+#category-description-show-more, #category-description-show-less {
+    cursor: pointer;
+}
+#category-85 #category-131 {
+    display:none;
+}
+#category-85 #top_sub_menu_38311 {
+    display:none;
+}
+
+.af-mobile .icon-filter:before {
+    content: "\e902";
+}
+.af-mobile [class^="icon-"]:before, .af [class*=" icon-"]:before {
+    font: normal normal normal 14px/1 filterIcons;
+    font-size: inherit;
+    speak: none;
+    text-transform: none;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0, 0);
+    display: inline-block;
+}
+.af-mobile {
+    display: none;
+    text-align: center;
+}
+@media only screen and (max-width: 767px) {
+    .af-mobile {
+        display: block;
     }
 }

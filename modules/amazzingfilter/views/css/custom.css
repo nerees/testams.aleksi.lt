@@ -12,3 +12,18 @@
 		padding-left: 10px;
 	}
 }
+.selectedFilters .cf {
+    background: #FBF8F4;
+}
+.selectedFilters .clearAll a {
+    color: #FBF8F4;
+}
+.selectedFilters .clearAll {
+    background: #262020;
+}
+#js-product-list-top .col-sm-12.hidden-md-up {
+    display: none;
+}
+#js-product-list-top .col-md-6.total-products {
+    opacity: 0;
+}

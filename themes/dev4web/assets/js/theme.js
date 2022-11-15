@@ -8578,3 +8578,22 @@ function setDisplay(items, item) {
         }
     }
 }
+$(document).ready(function(){
+    
+    $('#category-description-show-more').on('click', function() {
+        $('#category-description-show-more').hide();
+        $('#category-description-show-less').show().attr('style', 'display: block !important; visibility: initial !important;');
+        $('#category-description').css('height', 'inherit');
+    });
+    $('#category-description-show-less').on('click', function() {
+        $('#category-description-show-more').show();
+        $('#category-description-show-less').hide();
+        $('#category-description').css('height', '12.8em');
+    });
+});
+
+$(document).ready(function(){
+    $('.af-mobile').on('click', function () {
+        $('#amazzing_filter .compact-toggle').trigger('click');
+    });
+});

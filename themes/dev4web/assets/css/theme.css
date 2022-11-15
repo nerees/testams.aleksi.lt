@@ -10775,9 +10775,9 @@ body#checkout #hook-display-after-carrier > [class^="col"].links .row > [class^=
 }
 @media only screen and (max-width: 600px) {
     #blockcart-modal .cart-content .cart-content-btn {
-    display: flex;
-    flex-direction: column;
-}
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 #blockcart-modal .cart-content .cart-content-btn button {
