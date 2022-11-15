@@ -98,14 +98,14 @@
 {block name='hook_extra'}{/block}
 {literal}
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4R3ML54YJX"></script>
+  <!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-4R3ML54YJX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
     gtag('config', 'G-4R3ML54YJX');
-  </script>
+  </script>-->
   <!-- Hotjar Tracking Code for https://aleksi.lt -->
   <script>
     (function(h,o,t,j,a,r){
